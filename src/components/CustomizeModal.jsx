@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Sparkles, Check, Plus, ShoppingBag, Flame, Tag, ShieldCheck, AlertTriangle, Scale } from 'lucide-react';
 import { getAllergenIcon } from '../utils/legalCompliance';
+import { resolveImagePath } from '../utils/imageUtils';
 
 export default function CustomizeModal({ 
   product, 
@@ -118,7 +119,7 @@ export default function CustomizeModal({
           <X size={16} />
         </button>
 
-        <img src={product.image} alt={product.name} className="cust-img" />
+        <img src={resolveImagePath(product.image)} alt={product.name} className="cust-img" />
 
         <div className="cust-body">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -203,7 +204,7 @@ export default function CustomizeModal({
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       {opt.image && (
-                        <img src={opt.image} alt={opt.name} style={{ width: '28px', height: '28px', borderRadius: '4px', objectFit: 'cover' }} />
+                        <img src={resolveImagePath(opt.image)} alt={opt.name} style={{ width: '28px', height: '28px', borderRadius: '4px', objectFit: 'cover' }} />
                       )}
                       <div style={{
                         width: '18px',
@@ -262,7 +263,7 @@ export default function CustomizeModal({
                     onClick={() => toggleCrossSell(crossProd)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <img src={crossProd.image} alt={crossProd.name} className="cross-sell-img" />
+                    <img src={resolveImagePath(crossProd.image)} alt={crossProd.name} className="cross-sell-img" />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: '700', fontSize: '12px', color: '#fff' }}>{crossProd.name}</div>
                       <div style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '6px' }}>

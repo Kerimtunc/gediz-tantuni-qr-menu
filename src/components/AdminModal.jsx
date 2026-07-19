@@ -8,6 +8,7 @@ import { hashPassword, SUPERADMIN_HASH } from '../utils/cryptoAuth';
 import { playNotificationSound } from '../utils/audioAlert';
 import { generateQRCodeSVG } from '../utils/qrGenerator';
 import { ALLERGEN_LIST } from '../utils/legalCompliance';
+import { resolveImagePath } from '../utils/imageUtils';
 
 const BADGE_PRESETS = [
   '🔥 En Çok Tercih Edilen',
@@ -64,7 +65,7 @@ export default function AdminModal({
     categoryId: 'et',
     price: 150,
     description: '',
-    image: '/images/img_9_1784471055913.webp',
+    image: './images/img_9_1784471055913.webp',
     badge: '🔥 En Çok Tercih Edilen',
     rating: 5.0,
     prepTime: '8-10 dk',
@@ -82,7 +83,7 @@ export default function AdminModal({
     originalPrice: 350,
     comboPrice: 290,
     discountBadge: '%15 İndirim',
-    image: '/images/img_9_1784471055913.webp'
+    image: './images/img_9_1784471055913.webp'
   });
 
   const [newUser, setNewUser] = useState({
@@ -97,7 +98,7 @@ export default function AdminModal({
   const [newUpsellItem, setNewUpsellItem] = useState({
     name: '',
     price: 25,
-    image: '/images/img_3_1784471054581.webp'
+    image: './images/img_3_1784471054581.webp'
   });
 
   // Cross-Sell Target Product Selection State
@@ -229,7 +230,7 @@ export default function AdminModal({
       categoryId: 'et',
       price: 150,
       description: '',
-      image: '/images/img_9_1784471055913.webp',
+      image: './images/img_9_1784471055913.webp',
       badge: '🔥 En Çok Tercih Edilen',
       rating: 5.0,
       prepTime: '8-10 dk',
@@ -261,7 +262,7 @@ export default function AdminModal({
       originalPrice: 350,
       comboPrice: 290,
       discountBadge: '%15 İndirim',
-      image: '/images/img_9_1784471055913.webp'
+      image: './images/img_9_1784471055913.webp'
     });
   };
 
@@ -293,7 +294,7 @@ export default function AdminModal({
     }));
 
     alert('Lezzet yükseltmesi ürüne eklendi!');
-    setNewUpsellItem({ name: '', price: 25, image: '/images/img_3_1784471054581.webp' });
+    setNewUpsellItem({ name: '', price: 25, image: './images/img_3_1784471054581.webp' });
   };
 
   // Toggle Cross-Sell Recommendation Assignment for Target Product
@@ -489,7 +490,7 @@ export default function AdminModal({
           </form>
         ) : (
           <div style={{ padding: '16px' }}>
-            {/* Unified Admin Tabs - Reordered to place Legal Compliance at the end after QR Basımı */}
+            {/* Unified Admin Tabs */}
             <div className="admin-tab-bar">
               <button 
                 className={`admin-tab ${activeTab === 'notifications' ? 'active' : ''}`}
@@ -842,7 +843,7 @@ export default function AdminModal({
                       {filteredProductsList.map((p) => (
                         <tr key={p.id}>
                           <td>
-                            <img src={p.image} alt={p.name} style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'cover' }} />
+                            <img src={resolveImagePath(p.image)} alt={p.name} style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'cover' }} />
                           </td>
                           <td>
                             <input
@@ -1046,7 +1047,7 @@ export default function AdminModal({
                   {(combos || []).map(c => (
                     <div key={c.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', marginBottom: '6px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img src={c.image} alt={c.title} style={{ width: '40px', height: '40px', borderRadius: '6px', objectFit: 'cover' }} />
+                        <img src={resolveImagePath(c.image)} alt={c.title} style={{ width: '40px', height: '40px', borderRadius: '6px', objectFit: 'cover' }} />
                         <div>
                           <strong style={{ fontSize: '13px', color: '#fff' }}>{c.title}</strong>
                           <div style={{ fontSize: '11px', color: 'var(--accent-primary)', fontWeight: '800' }}>
@@ -1135,7 +1136,7 @@ export default function AdminModal({
                                   }}>
                                     {isSelected && <Check size={12} />}
                                   </div>
-                                  <img src={candidate.image} alt={candidate.name} style={{ width: '28px', height: '28px', borderRadius: '4px', objectFit: 'cover' }} />
+                                  <img src={resolveImagePath(candidate.image)} alt={candidate.name} style={{ width: '28px', height: '28px', borderRadius: '4px', objectFit: 'cover' }} />
                                   <span style={{ fontWeight: '700' }}>{candidate.name} ({candidate.price} TL)</span>
                                 </div>
 
@@ -1409,7 +1410,7 @@ export default function AdminModal({
                     }}
                   />
                   <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                    İpucu: Yerel ağ testi için `http://192.168.1.X:3000` veya canlı domain `https://gediztantuni.com` yazabilirsiniz.
+                    İpucu: Canlı adresiniz `https://kerimtunc.github.io/gediz-tantuni-qr-menu/` olarak kayıtlıdır.
                   </div>
                 </div>
 
@@ -1426,7 +1427,7 @@ export default function AdminModal({
                   {/* Inline Pure Client-Side SVG QR Code Renderer */}
                   <div 
                     dangerouslySetInnerHTML={{ 
-                      __html: generateQRCodeSVG(customQrUrl || 'http://localhost:3000', 220) 
+                      __html: generateQRCodeSVG(customQrUrl || 'https://kerimtunc.github.io/gediz-tantuni-qr-menu/', 220) 
                     }} 
                     style={{ display: 'inline-block' }}
                   />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sparkles, ArrowRight, Percent, ShoppingBag } from 'lucide-react';
+import { resolveImagePath } from '../utils/imageUtils';
 
 export default function ComboBanner({ combos, allProducts, onAddCombo }) {
   if (!combos || combos.length === 0) return null;
@@ -47,8 +48,12 @@ export default function ComboBanner({ combos, allProducts, onAddCombo }) {
               }}
             >
               <img
-                src={combo.image}
+                src={resolveImagePath(combo.image)}
                 alt={combo.title}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = './images/img_9_1784471055913.webp';
+                }}
                 style={{ width: '74px', height: '74px', borderRadius: 'var(--radius-md)', objectFit: 'cover' }}
               />
 

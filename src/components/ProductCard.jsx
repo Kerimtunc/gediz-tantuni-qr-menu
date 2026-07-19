@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus, Flame } from 'lucide-react';
 import { getAllergenIcon } from '../utils/legalCompliance';
+import { resolveImagePath } from '../utils/imageUtils';
 
 export default function ProductCard({ product, onSelect, legalConfig }) {
   if (!product) return null;
@@ -8,7 +9,7 @@ export default function ProductCard({ product, onSelect, legalConfig }) {
   const { 
     name = 'Lezzet', 
     price = 0, 
-    image = '/images/img_1_1784471051133.webp', 
+    image = './images/img_1_1784471051133.webp', 
     badge = '', 
     inStock = true,
     calories = '',
@@ -16,23 +17,24 @@ export default function ProductCard({ product, onSelect, legalConfig }) {
   } = product;
 
   const showLegalDetails = Boolean(legalConfig?.enabled);
+  const resolvedImg = resolveImagePath(image);
 
   return (
     <article className="compact-card" onClick={() => inStock && onSelect && onSelect(product)}>
       <div className="compact-card-img-wrapper">
         <img 
-          src={image} 
+          src={resolvedImg} 
           alt={name} 
           className="compact-card-img" 
           loading="lazy" 
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = '/images/img_1_1784471051133.webp';
+            e.target.src = './images/img_1_1784471051133.webp';
           }}
         />
         {badge && <div className="compact-card-badge">{badge}</div>}
 
-        {/* Legal Calorie Tag Overlay (Rendered only if legal mode is enabled) */}
+        {/* Legal Calorie Tag Overlay */}
         {showLegalDetails && calories && (
           <div style={{
             position: 'absolute',
@@ -57,7 +59,7 @@ export default function ProductCard({ product, onSelect, legalConfig }) {
       <div className="compact-card-body">
         <h3 className="compact-card-title" title={name}>{name}</h3>
 
-        {/* Allergen Icons Row (Rendered only if legal mode is enabled) */}
+        {/* Allergen Icons Row */}
         {showLegalDetails && Array.isArray(allergens) && allergens.length > 0 && (
           <div style={{ fontSize: '10px', display: 'flex', gap: '3px', marginTop: '2px', color: 'var(--text-muted)' }}>
             {allergens.slice(0, 3).map((a, i) => (
